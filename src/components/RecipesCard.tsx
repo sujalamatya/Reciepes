@@ -9,6 +9,7 @@ import {
 
 import { Recipe } from "../types/types";
 import { motion } from "framer-motion";
+import Image from "next/image";
 interface RecipesCardProps {
   recipes: Recipe[];
 }
@@ -34,9 +35,11 @@ export default function RecipesCard({ recipes }: RecipesCardProps) {
         >
           <Card className="hover:shadow-lg transition-shadow">
             <CardHeader>
-              <img
-                src="/assets/chicken-fettucine-alfredo.jpg"
+            <Image
+                src="/assets/chicken-fettuccine-alfredo.jpg"
                 alt={recipe.name}
+                width={500}
+                height={300}
                 className="w-full h-48 object-cover rounded-t-lg"
               />
             </CardHeader>

@@ -2,15 +2,15 @@
 
 import { useState } from "react";
 
-import { fetchRecipes } from "../../api/api";
+import { fetchRecipes} from "../../../api/api";
 
 import { motion } from "framer-motion";
 
-import SearchBar from "../../components/ui/SearchBar";
+import SearchBar from "../../../components/ui/SearchBar";
 
-import RecipesCard from "../../components/RecipesCard";
+import RecipesCard from "../../../components/RecipesCard";
 
-import { Recipe } from "../../types/types";
+import { Recipe } from "../../../types/types";
 
 export default function Home() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
@@ -26,7 +26,6 @@ export default function Home() {
 
     try {
       const data = await fetchRecipes(query);
-
       setRecipes(data);
     } catch (err) {
       setError("Failed to fetch recipes. Please try again.");
