@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-import { fetchRecipes} from "../../../api/api";
+import { fetchRecipes } from "../../../api/api";
 
 import { motion } from "framer-motion";
 
@@ -35,8 +35,8 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50">
-      <div className="w-full max-w-2xl px-4">
+    <div className="min-h-screen flex flex-col items-center  bg-gray-50 mt-10">
+      <div className="w-full max-w-2xl px-4 ">
         <h1 className="text-3xl font-bold mb-6 text-center">Recipe Search</h1>
 
         <SearchBar onSearch={handleSearch} />

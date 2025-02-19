@@ -4,6 +4,7 @@ export interface Recipe {
   cuisine: string;
   difficulty: string;
   rating: number;
+  image: string;
   ingredients: string[];
   instructions: string[];
 }
