@@ -1,12 +1,14 @@
 from rest_framework import status
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
-from .models import Recipe, CustomUser
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from .models import Recipe
 from .serializers import CustomUserSerializer, RecipeSerializer
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def search(request):
     query = request.GET.get('q', '').strip()
     if query:
