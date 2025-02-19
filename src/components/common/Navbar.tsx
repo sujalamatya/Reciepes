@@ -2,7 +2,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-
 import { motion } from "framer-motion";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -56,7 +55,7 @@ export default function Navbar() {
             whileTap={{ scale: 0.95 }}
             className="text-2xl font-bold text-blue-600"
           >
-            <Link href="/main/home">
+            <Link href="/">
               <Image
                 src="/logo.png"
                 alt="logo"
@@ -76,7 +75,11 @@ export default function Navbar() {
                 whileTap={{ scale: 0.9 }}
               >
                 <Link
-                  href={`/main/${link.toLowerCase().replace(" ", "")}`}
+                  href={
+                    link === "Home"
+                      ? "/"
+                      : `/${link.toLowerCase().replace(" ", "")}`
+                  }
                   className="text-gray-700 hover:text-blue-600 transition-colors relative group"
                 >
                   {link}
