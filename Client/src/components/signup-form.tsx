@@ -10,7 +10,6 @@ import { Button } from "./ui/button";
 import Image from "next/image";
 import {
   Dialog,
-  
   DialogContent,
   DialogHeader,
   DialogTitle,
@@ -19,7 +18,7 @@ import {
 } from "./ui/dialog"; // Adjust imports based on your UI library
 import Link from "next/link";
 
-const API_URL = "http://192.168.1.47:8000/api/signup/";
+const API_URL = "http://localhost:8000/api/signup/";
 
 export function SignUpForm({
   className,
@@ -74,7 +73,7 @@ export function SignUpForm({
 
   const handleDialogClose = () => {
     setIsDialogOpen(false);
-    
+
     router.push("/auth/login");
   };
 
@@ -152,7 +151,6 @@ export function SignUpForm({
                       src="apple.svg"
                       alt="apple Logo"
                       fill
-                      
                       className="dark:brightness-[0.2] dark:grayscale object-contain"
                     />
                   </div>
@@ -165,7 +163,6 @@ export function SignUpForm({
                       src="/google.svg"
                       alt="Google Logo"
                       fill
-                      
                       className="dark:brightness-[0.2] dark:grayscale object-contain"
                     />
                   </div>
@@ -178,7 +175,6 @@ export function SignUpForm({
                       src="/facebook.svg"
                       alt="facebook Logo"
                       fill
-                      
                       className="dark:brightness-[0.2] dark:grayscale object-contain"
                     />
                   </div>
@@ -215,7 +211,8 @@ export function SignUpForm({
           <DialogHeader>
             <DialogTitle>Account Created</DialogTitle>
             <DialogDescription>
-              Your account has been successfully created. You will now be redirected to the login page.
+              Your account has been successfully created. You will now be
+              redirected to the login page.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>

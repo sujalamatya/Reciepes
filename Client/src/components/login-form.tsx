@@ -9,7 +9,7 @@ import { Button } from "./ui/button";
 import Image from "next/image";
 import Link from "next/link";
 
-const API_URL = "http://192.168.1.47:8000/api/login/";
+const API_URL = "http://localhost:8000/api/login/";
 
 export function LoginForm({
   className,
