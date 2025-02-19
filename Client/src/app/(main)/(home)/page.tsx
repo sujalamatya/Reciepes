@@ -62,15 +62,13 @@ export default function HomePage() {
         <section key={difficulty} className="mb-8">
           <h2 className="text-2xl font-semibold mb-4">{difficulty} Recipes</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {loading ? (
-              Array.from({ length: 3 }).map((_, i) => (
-                <Skeleton key={i} className="h-40 w-full rounded-lg" />
-              ))
-            ) : (
-              filterByDifficulty(difficulty).map((recipe) => (
-                <RecipeCard key={recipe.id} recipe={recipe} />
-              ))
-            )}
+            {loading
+              ? Array.from({ length: 3 }).map((_, i) => (
+                  <Skeleton key={i} className="h-40 w-full rounded-lg" />
+                ))
+              : filterByDifficulty(difficulty).map((recipe) => (
+                  <RecipeCard key={recipe.id} recipe={recipe} />
+                ))}
           </div>
         </section>
       ))}
@@ -79,13 +77,13 @@ export default function HomePage() {
       <section className="mb-8">
         <h2 className="text-2xl font-semibold mb-4">Top Rated Recipes</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {loading ? (
-            Array.from({ length: 3 }).map((_, i) => (
-              <Skeleton key={i} className="h-40 w-full rounded-lg" />
-            ))
-          ) : (
-            topRatedRecipes.map((recipe) => <RecipeCard key={recipe.id} recipe={recipe} />)
-          )}
+          {loading
+            ? Array.from({ length: 3 }).map((_, i) => (
+                <Skeleton key={i} className="h-40 w-full rounded-lg" />
+              ))
+            : topRatedRecipes.map((recipe) => (
+                <RecipeCard key={recipe.id} recipe={recipe} />
+              ))}
         </div>
       </section>
     </div>

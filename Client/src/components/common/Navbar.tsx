@@ -66,36 +66,36 @@ export default function Navbar() {
             </Link>
           </motion.div>
 
-          {/* Navigation Links in the Middle */}
-          <div className="flex space-x-8 items-center mx-auto">
-            {["Home", "Search", "About Us"].map((link, index) => (
-              <motion.div
-                key={index}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                <Link
-                  href={
-                    link === "Home"
-                      ? "/"
-                      : `/${link.toLowerCase().replace(" ", "")}`
-                  }
-                  className="text-gray-700 hover:text-blue-600 transition-colors relative group"
+          {/* Navigation Links, Search Bar & Login on the Right */}
+          <div className="flex items-center space-x-8">
+            {/* Navigation Links */}
+            <div className="flex space-x-8 items-center">
+              {["Home", "Search", "About Us"].map((link, index) => (
+                <motion.div
+                  key={index}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
                 >
-                  {link}
-                  <motion.span
-                    className="absolute left-0 bottom-0 h-0.5 w-0 bg-blue-600 transition-all group-hover:w-full"
-                    initial={{ width: 0 }}
-                    whileHover={{ width: "100%" }}
-                  />
-                </Link>
-              </motion.div>
-            ))}
-          </div>
+                  <Link
+                    href={
+                      link === "Home"
+                        ? "/"
+                        : `/${link.toLowerCase().replace(" ", "")}`
+                    }
+                    className="text-gray-700 hover:text-blue-600 transition-colors relative group"
+                  >
+                    {link}
+                    <motion.span
+                      className="absolute left-0 bottom-0 h-0.5 w-0 bg-blue-600 transition-all group-hover:w-full"
+                      initial={{ width: 0 }}
+                      whileHover={{ width: "100%" }}
+                    />
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
 
-          {/* Search Bar & Login on the Right */}
-          <div className="flex items-center space-x-6">
-            {/* Search Bar */}
+            {/* Search Bar 
             <form
               onSubmit={handleSearch}
               className="flex items-center space-x-2"
@@ -119,7 +119,7 @@ export default function Navbar() {
               >
                 Search
               </Button>
-            </form>
+            </form>*/}
 
             {/* Login Link */}
             <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
@@ -127,7 +127,7 @@ export default function Navbar() {
                 href="/auth/login"
                 className="text-gray-700 hover:text-blue-600 transition-colors relative group flex items-center"
               >
-                <Avatar>
+                <Avatar className="w-6 h-6">
                   <AvatarImage src="/login-avatar.png" />
                   <AvatarFallback>👤</AvatarFallback>
                 </Avatar>
@@ -139,7 +139,6 @@ export default function Navbar() {
       </div>
 
       {/* Search Results Section */}
-      {/* <div className="max-w-6xl mx-auto px-4 py-6"> */}
       {loading && <p>Loading recipes...</p>}
       {error && <p className="text-red-500">{error}</p>}
 
@@ -171,7 +170,6 @@ export default function Navbar() {
           ))}
         </div>
       )}
-      {/* </div>   */}
     </nav>
   );
 }
