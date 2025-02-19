@@ -75,7 +75,7 @@ export function SignUpForm({
   const handleDialogClose = () => {
     setIsDialogOpen(false);
     
-    router.push("/");
+    router.push("/auth/login");
   };
 
   return (
@@ -188,7 +188,7 @@ export function SignUpForm({
               </div>
               <div className="text-center text-sm">
                 <Link
-                  href="/"
+                  href="/auth/login"
                   className="underline underline-offset-4 text-blue-600 hover:text-blue-400"
                 >
                   Already Have an account?

@@ -30,6 +30,7 @@ export function LoginForm({
       });
 
       console.log("Response status:", response.status);
+      console.log("Response: ", response.json());
 
       if (!response.ok) {
         const errorText = await response.text();
@@ -116,7 +117,7 @@ export function LoginForm({
 
               {/* Submit Button */}
 
-              <Link href="/search">
+              <Link href="/">
                 <Button
                   type="submit"
                   className="w-full bg-blue-500 hover:bg-blue-300"
@@ -184,7 +185,7 @@ export function LoginForm({
               <div className="text-center text-sm">
                 Don&apos;t have an account?{" "}
                 <a
-                  href="/signup"
+                  href="/auth/signup"
                   className="underline underline-offset-4 text-green-600"
                 >
                   Sign up
