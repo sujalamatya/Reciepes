@@ -61,24 +61,26 @@ export default function Navbar() {
           <div className="flex items-center space-x-8">
             {/* Navigation Links */}
             <div className="flex space-x-8 items-center">
-              {["Home", "Search", "About Us"].map((link, index) => (
-                <motion.div
-                  key={index}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  <Link
-                    href={
-                      link === "Home"
-                        ? "/"
-                        : `/${link.toLowerCase().replace(" ", "")}`
-                    }
-                    className="text-gray-700 hover:text-blue-600 transition-colors"
+              {["Home", "Search", "Favorites", "About Us"].map(
+                (link, index) => (
+                  <motion.div
+                    key={index}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
                   >
-                    {link}
-                  </Link>
-                </motion.div>
-              ))}
+                    <Link
+                      href={
+                        link === "Home"
+                          ? "/"
+                          : `/${link.toLowerCase().replace(" ", "")}`
+                      }
+                      className="text-gray-700 hover:text-blue-600 transition-colors"
+                    >
+                      {link}
+                    </Link>
+                  </motion.div>
+                )
+              )}
             </div>
 
             {/* User Dropdown or Login */}

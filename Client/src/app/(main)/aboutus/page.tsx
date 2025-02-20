@@ -62,7 +62,7 @@ export default function AboutUs() {
                 alt="Team Member 2"
                 className="w-32 h-32 rounded-full mx-auto mb-4"
               />
-              <h3 className="text-xl font-bold mb-2">Gaurav Neupane</h3>
+              <h3 className="text-xl font-bold mb-2">Gaurab Neupane</h3>
               <p className="text-gray-600">Backend</p>
             </div>
 
