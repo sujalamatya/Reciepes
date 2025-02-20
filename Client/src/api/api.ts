@@ -1,27 +1,44 @@
 import { Recipe } from "../types/types";
 
 export async function fetchRecipes(query: string = ""): Promise<Recipe[]> {
+  const token = localStorage.getItem("access");
+
+  // Log the token for debugging purposes
+  console.log("Using token:", token);
+
+  // Check if token exists before proceeding
+  if (!token) {
+    throw new Error("No access token found. Please log in.");
+  }
+
   const url = query
     ? `http://localhost:8000/api/recipes/search?q=${query}`
     : "http://localhost:8000/api/recipes";
 
-  const response = await fetch(url, {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("access")}`,
-      "Content-Type": "application/json",
-    },
-  });
+  try {
+    const response = await fetch(url, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("access")}`,
+        "Content-Type": "application/json",
+      },
+    });
 
-  if (!response.ok) {
-    throw new Error("Failed to fetch recipes");
+    // Check for failed responses
+    if (!response.ok) {
+      throw new Error(`Failed to fetch recipes. Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    // Check if recipes are found
+    if (!data.recipes || data.recipes.length === 0) {
+      throw new Error("No recipes found matching your search.");
+    }
+
+    return data.recipes;
+
+  } catch (error) {
+    console.error("Error fetching recipes:", error);
+    throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
   }
-
-  const data = await response.json();
-
-  // Check if recipes are found, if not, display a "recipe not found" message
-  if (data.recipes.length === 0) {
-    throw new Error("Recipe not found");
-  }
-
-  return data.recipes;
 }
