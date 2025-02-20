@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { Eye, EyeOff } from "lucide-react";
 import { Card, CardContent } from "./ui/card";
 import { Label } from "@radix-ui/react-label";
+import { useRouter } from "next/navigation";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import Image from "next/image";
@@ -15,6 +16,7 @@ export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -29,8 +31,12 @@ export function LoginForm({
         body: JSON.stringify({ email, password }),
       });
 
-      console.log("Response status:", response.status);
-      console.log("Response: ", response.json());
+      const data = await response.json();
+      if (response.status === 200) {
+        const access = data.tokens.access;
+        localStorage.setItem("access", access);
+        router.push("/");
+      }
 
       if (!response.ok) {
         const errorText = await response.text();
@@ -117,15 +123,15 @@ export function LoginForm({
 
               {/* Submit Button */}
 
-              <Link href="/">
-                <Button
-                  type="submit"
-                  className="w-full bg-blue-500 hover:bg-blue-300"
-                  disabled={isLoading}
-                >
-                  {isLoading ? "Logging In..." : "Login"}
-                </Button>
-              </Link>
+              {/* <Link href="/"> */}
+              <Button
+                type="submit"
+                className="w-full bg-blue-500 hover:bg-blue-300"
+                disabled={isLoading}
+              >
+                {isLoading ? "Logging In..." : "Login"}
+              </Button>
+              {/* </Link> */}
 
               {/* Error Message */}
               {error && (

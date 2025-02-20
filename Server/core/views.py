@@ -8,7 +8,6 @@ from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
 def search(request):
     query = request.GET.get('q', '').strip()
     if query:
@@ -38,9 +37,12 @@ def user_login(request):
     email = request.data.get("email")
     password = request.data.get("password")
 
+    print(email, password)
+
     if not email and not password:
         return Response({'error': 'Email and password are required'},status=status.HTTP_400_BAD_REQUEST)
     user = authenticate(email=email, password=password)
+    print(user)
     if user is not None:
         tokens = get_tokens_for_user(user)
         return Response({'message': 'User logged in successfully', 'tokens': tokens},status=status.HTTP_200_OK)
