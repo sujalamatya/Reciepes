@@ -13,7 +13,7 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex gap-2 w-full">
+    <form onSubmit={handleSubmit} className="flex gap-2 w-10 justify-center">
       <input
         type="text"
         placeholder="Search recipes..."
@@ -24,7 +24,7 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
       />
       <button
         type="submit"
-        className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+        className="px-4 py-2 bg-opacity-70 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
       >
         Search
       </button>
