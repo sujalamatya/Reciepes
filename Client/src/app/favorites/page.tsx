@@ -19,9 +19,6 @@ export default function Favorite() {
   const [error, setError] = useState<string | null>(null);
   const token = localStorage.getItem("access");
 
-  // Log the token for debugging purposes
-  console.log("Using token:", token);
-
   // Check if token exists before proceeding
   if (!token) {
     throw new Error("No access token found. Please log in.");
@@ -43,7 +40,7 @@ export default function Favorite() {
           throw new Error("Failed to fetch favorites");
         }
         const data = await response.json();
-        setFavorites(data);
+        setFavorites(data.recipes);
       } catch (error) {
         console.error("Error fetching favorites:", error);
         setError("Failed to load favorites. Please try again later.");
