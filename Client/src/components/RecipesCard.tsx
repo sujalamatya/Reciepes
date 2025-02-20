@@ -71,8 +71,6 @@ export default function RecipesCard({ recipes }: RecipesCardProps) {
             Authorization: `Bearer ${localStorage.getItem("access")}`,
             "Content-Type": "application/json",
           },
-          // Include any necessary authentication tokens or data in the body
-          // body: JSON.stringify({ someKey: "someValue" }),
         }
       );
 
@@ -86,7 +84,7 @@ export default function RecipesCard({ recipes }: RecipesCardProps) {
           ...prev,
           [recipeId]: !prev[recipeId], // Toggle the favorite status
         };
-        localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+
         return updatedFavorites;
       });
     } catch (error) {
