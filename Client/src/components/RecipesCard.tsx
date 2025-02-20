@@ -51,16 +51,47 @@ export default function RecipesCard({ recipes }: RecipesCardProps) {
     setIsDrawerOpen(false);
     setSelectedRecipe(null);
   };
+  const token = localStorage.getItem("access");
 
-  const toggleFavorite = (recipeId: number | string) => {
-    setFavorites((prev) => {
-      const updatedFavorites = {
-        ...prev,
-        [recipeId]: !prev[recipeId],
-      };
-      localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
-      return updatedFavorites;
-    });
+  // Log the token for debugging purposes
+  console.log("Using token:", token);
+
+  // Check if token exists before proceeding
+  if (!token) {
+    throw new Error("No access token found. Please log in.");
+  }
+  const toggleFavorite = async (recipeId: number | string) => {
+    try {
+      // Send a POST request to the API to toggle the favorite status
+      const response = await fetch(
+        `http://localhost:8000/api/recipes/favorite/${recipeId}/`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("access")}`,
+            "Content-Type": "application/json",
+          },
+          // Include any necessary authentication tokens or data in the body
+          // body: JSON.stringify({ someKey: "someValue" }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to update favorite status");
+      }
+
+      // Update the local state to reflect the new favorite status
+      setFavorites((prev) => {
+        const updatedFavorites = {
+          ...prev,
+          [recipeId]: !prev[recipeId], // Toggle the favorite status
+        };
+        localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+        return updatedFavorites;
+      });
+    } catch (error) {
+      console.error("Error toggling favorite:", error);
+    }
   };
 
   const parseArray = (value: string | string[]): string[] => {
