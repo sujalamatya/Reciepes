@@ -207,49 +207,6 @@ export function SignUpForm(props: React.HTMLAttributes<HTMLDivElement>) {
                 <div className="text-center text-sm text-red-500">{error}</div>
               )}
 
-              <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
-                <span className="relative z-10 bg-background px-2 text-muted-foreground">
-                  or sign up with
-                </span>
-              </div>
-              <div className="flex flex-col gap-4 ">
-                <Button variant="outline" className="w-full relative ">
-                  <div className="relative w-5 h-5">
-                    <Image
-                      src="/apple.svg"
-                      alt="apple Logo"
-                      fill
-                      className="dark:brightness-[0.2] dark:grayscale object-contain"
-                    />
-                  </div>
-                  Sign Up With Apple ID
-                  <span className="sr-only">Sign Up with apple</span>
-                </Button>
-                <Button variant="outline" className="w-full relative">
-                  <div className="relative w-5 h-5">
-                    <Image
-                      src="/google.svg"
-                      alt="Google Logo"
-                      fill
-                      className="dark:brightness-[0.2] dark:grayscale object-contain"
-                    />
-                  </div>
-                  Sign Up With Google
-                  <span className="sr-only">Sign Up with google</span>
-                </Button>
-                <Button variant="outline" className="w-full relative">
-                  <div className="relative w-5 h-5">
-                    <Image
-                      src="/facebook.svg"
-                      alt="facebook Logo"
-                      fill
-                      className="dark:brightness-[0.2] dark:grayscale object-contain"
-                    />
-                  </div>
-                  Sign Up With Facebook
-                  <span className="sr-only">Sign Up with facebook</span>
-                </Button>
-              </div>
               <div className="text-center text-sm">
                 Already have an account?{" "}
                 <a href="/auth/login" className="text-blue-600 underline">

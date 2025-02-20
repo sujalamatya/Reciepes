@@ -53,7 +53,7 @@ export default function Navbar() {
           {/* Logo */}
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Link href="/">
-              <Image src="/logo.png" alt="logo" width={150} height={100} />
+              <Image src="/logo.png" alt="logo" width={200} height={100} />
             </Link>
           </motion.div>
 
