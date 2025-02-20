@@ -27,6 +27,7 @@ class Recipe(models.Model):
     instructions = models.TextField()
     image = models.ImageField(upload_to='recipe_images/', null=True, blank=True)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    favorites = models.ManyToManyField(CustomUser, related_name='favorite_recipes', blank=True)
     added_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
