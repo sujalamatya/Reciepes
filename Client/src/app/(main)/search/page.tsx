@@ -45,7 +45,10 @@ export default function Home() {
           <SearchBar onSearch={handleSearch} />
 
           {loading && (
-            <p className="text-center mt-4 text-3xl font-bold">Loading...</p>
+            <p className="text-center mt-4 text-3xl font-bold">
+              Loading
+              <span className="animate-pulse">...</span>
+            </p>
           )}
 
           {error && <p className="text-red-500 text-center mt-4">{error}</p>}

@@ -37,11 +37,27 @@ export default function RecipesCard({ recipes }: RecipesCardProps) {
   const handleViewRecipe = (recipe: Recipe) => {
     setSelectedRecipe(recipe);
     setIsDrawerOpen(true);
+    console.log("Selected Recipe:", recipe); // Corrected console log placement
   };
 
   const handleCloseDrawer = () => {
     setIsDrawerOpen(false);
     setSelectedRecipe(null);
+  };
+
+  // Helper function to parse the ingredients and instructions if they are strings
+  const parseArray = (value: string | string[]): string[] => {
+    if (typeof value === "string") {
+      try {
+        // Replace single quotes with double quotes and remove any unwanted extra spaces
+        const correctedValue = value.replace(/'/g, '"').trim();
+        return JSON.parse(correctedValue); // Attempt to parse as JSON string
+      } catch (error) {
+        console.error("Error parsing JSON:", error);
+        return [];
+      }
+    }
+    return value;
   };
 
   return (
@@ -114,6 +130,7 @@ export default function RecipesCard({ recipes }: RecipesCardProps) {
               </DrawerHeader>
 
               <div className="p-4">
+                {/* Recipe Image */}
                 <Image
                   src={`http://localhost:8000${selectedRecipe.image}`}
                   alt={selectedRecipe.name}
@@ -121,9 +138,60 @@ export default function RecipesCard({ recipes }: RecipesCardProps) {
                   height={300}
                   className="w-full h-48 object-cover rounded-lg"
                 />
+
+                {/* Ingredients Section */}
+                <div className="mt-6">
+                  <h3 className="text-lg font-semibold text-gray-800">
+                    Ingredients
+                  </h3>
+
+                  {/* Parse ingredients to ensure it's an array */}
+                  {selectedRecipe.ingredients &&
+                  selectedRecipe.ingredients.length > 0 ? (
+                    <ul className="mt-2 list-disc list-inside text-gray-700">
+                      {parseArray(selectedRecipe.ingredients).map(
+                        (ingredient, index) => (
+                          <li key={index} className="text-sm">
+                            {ingredient}
+                          </li>
+                        )
+                      )}
+                    </ul>
+                  ) : (
+                    <p className="text-sm text-gray-500">
+                      No ingredients available.
+                    </p>
+                  )}
+                </div>
+
+                {/* Instructions Section */}
+                <div className="mt-6">
+                  <h3 className="text-lg font-semibold text-gray-800">
+                    Instructions
+                  </h3>
+
+                  {/* Parse instructions to ensure it's an array */}
+                  {selectedRecipe.instructions &&
+                  selectedRecipe.instructions.length > 0 ? (
+                    <ol className="mt-2 list-decimal list-inside text-gray-700">
+                      {parseArray(selectedRecipe.instructions).map(
+                        (step, index) => (
+                          <li key={index} className="text-sm">
+                            {step}
+                          </li>
+                        )
+                      )}
+                    </ol>
+                  ) : (
+                    <p className="text-sm text-gray-500">
+                      No instructions available.
+                    </p>
+                  )}
+                </div>
+
+                {/* Optional: Description */}
                 <p className="mt-4 text-gray-700">
-                  test
-                  {/* {selectedRecipe.description} */}
+                  {selectedRecipe.description}
                 </p>
               </div>
 

@@ -148,7 +148,7 @@ export function SignUpForm({
                 <Button variant="outline" className="w-full relative ">
                   <div className="relative w-5 h-5">
                     <Image
-                      src="apple.svg"
+                      src="/apple.svg"
                       alt="apple Logo"
                       fill
                       className="dark:brightness-[0.2] dark:grayscale object-contain"
