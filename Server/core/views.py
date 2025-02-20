@@ -80,7 +80,8 @@ def add_favorite(request, recipe_id):
     try:
         recipe = Recipe.objects.get(id=recipe_id)
         if recipe in request.user.favorite_recipes.all():
-            return Response({'message': 'Recipe already added to favorites'}, status=status.HTTP_400_BAD_REQUEST)
+            recipe.favorites.remove(request.user)
+            return Response({'message': 'Recipe removed from favorites successfully'}, status=status.HTTP_400_BAD_REQUEST)
         recipe.favorites.add(request.user)
         return Response({'message': 'Recipe added to favorites successfully'}, status=status.HTTP_201_CREATED)
     except Exception as e:
