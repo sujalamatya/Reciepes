@@ -5,7 +5,12 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export default function Navbar() {
   const [username, setUsername] = useState<string | null>(null);
@@ -83,13 +88,20 @@ export default function Navbar() {
                   <DropdownMenuTrigger asChild>
                     <button className="flex items-center space-x-2 focus:outline-none">
                       <Avatar className="w-8 h-8">
-                        <AvatarFallback>{username[0]?.toUpperCase()}</AvatarFallback>
+                        <AvatarFallback>
+                          {username[0]?.toUpperCase()}
+                        </AvatarFallback>
                       </Avatar>
-                      <span className="text-gray-700 font-medium">{username}</span>
+                      <span className="text-gray-700 font-medium">
+                        {username}
+                      </span>
                     </button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end" className="w-36">
-                    <DropdownMenuItem onClick={handleLogout} className="text-red-600 cursor-pointer">
+                    <DropdownMenuItem
+                      onClick={handleLogout}
+                      className="text-red-600 cursor-pointer"
+                    >
                       Logout
                     </DropdownMenuItem>
                   </DropdownMenuContent>
