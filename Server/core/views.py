@@ -37,9 +37,10 @@ def get_tokens_for_user(user):
             return {
                 'refresh': str(token),
                 'access': str(token.access_token),
+                'exp': token.access_token.payload['exp'],
             }
     except Exception as e:
-        return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        return {'error': str(e)}
 
 @api_view(['POST'])
 def user_login(request):
@@ -47,12 +48,9 @@ def user_login(request):
         email = request.data.get("email")
         password = request.data.get("password")
 
-        print(email, password)
-
-        if not email and not password:
+        if not email or not password:
             return Response({'error': 'Email and password are required'},status=status.HTTP_400_BAD_REQUEST)
         user = authenticate(email=email, password=password)
-        print(user)
         if user is not None:
             tokens = get_tokens_for_user(user)
             return Response({'message': 'User logged in successfully', 'tokens': tokens},status=status.HTTP_200_OK)
@@ -62,36 +60,24 @@ def user_login(request):
 
 
 @api_view(['POST'])
-def add_recipe(request):
-    try:
-        form = RecipeSerializer(data=request.data)
-        if form.is_valid():
-            recipe = form.save(commit=False)
-            recipe.user = request.user
-            recipe.save()
-            return Response({'message': 'Recipe added successfully'}, status=status.HTTP_201_CREATED)
-        return Response({'errors': form.errors}, status=status.HTTP_400_BAD_REQUEST)
-    except Exception as e:
-        return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
-
-
-@api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def add_favorite(request, recipe_id):
     try:
         recipe = Recipe.objects.get(id=recipe_id)
         if recipe in request.user.favorite_recipes.all():
             recipe.favorites.remove(request.user)
-            return Response({'message': 'Recipe removed from favorites successfully'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'message': 'Recipe removed from favorites successfully'}, status=status.HTTP_200_OK)
         recipe.favorites.add(request.user)
         return Response({'message': 'Recipe added to favorites successfully'}, status=status.HTTP_201_CREATED)
     except Exception as e:
         return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def get_favorites(request):
     try:
         recipes = request.user.favorite_recipes.all()
-        if not recipes:
+        if not recipes.exists():
             return Response({'message': 'No favorite recipes found'}, status=status.HTTP_404_NOT_FOUND)
 
         serializer = RecipeSerializer(recipes, many=True)
