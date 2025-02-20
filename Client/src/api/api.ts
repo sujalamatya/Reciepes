@@ -1,3 +1,5 @@
+import { Recipe } from "../types/types";
+
 export async function fetchRecipes(query: string = ""): Promise<Recipe[]> {
   const token = localStorage.getItem("access");
 
@@ -16,7 +18,7 @@ export async function fetchRecipes(query: string = ""): Promise<Recipe[]> {
   try {
     const response = await fetch(url, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${localStorage.getItem("access")}`,
         "Content-Type": "application/json",
       },
     });
