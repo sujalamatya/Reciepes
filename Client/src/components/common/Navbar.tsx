@@ -1,14 +1,16 @@
 "use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Avatar, AvatarFallback} from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 export default function Navbar() {
   const [username, setUsername] = useState<string | null>(null);
 
-  // Load username from storage on mountz
+  // Load username from storage on mount
   useEffect(() => {
     const getUsername = () => {
       const storedUsername =
@@ -18,7 +20,7 @@ export default function Navbar() {
 
     getUsername(); // Initial load
 
-    // Listen for changes in localStorage and sessionStorage
+    // Listen for changes in storage
     const handleStorageChange = () => getUsername();
 
     window.addEventListener("storage", handleStorageChange);
@@ -74,29 +76,30 @@ export default function Navbar() {
               ))}
             </div>
 
-            {/* Login / User Section */}
+            {/* User Dropdown or Login */}
             <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
               {username ? (
-                <div className="flex items-center space-x-2">
-                  <Avatar className="w-8 h-8">
-                    
-                    <AvatarFallback>{username[0]?.toUpperCase()}</AvatarFallback>
-                  </Avatar>
-                  <span className="text-gray-700 font-medium">{username}</span>
-                  <button
-                    onClick={handleLogout}
-                    className="text-red-600 hover:underline ml-2"
-                  >
-                    Logout
-                  </button>
-                </div>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <button className="flex items-center space-x-2 focus:outline-none">
+                      <Avatar className="w-8 h-8">
+                        <AvatarFallback>{username[0]?.toUpperCase()}</AvatarFallback>
+                      </Avatar>
+                      <span className="text-gray-700 font-medium">{username}</span>
+                    </button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-36">
+                    <DropdownMenuItem onClick={handleLogout} className="text-red-600 cursor-pointer">
+                      Logout
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               ) : (
                 <Link
                   href="/auth/login"
                   className="text-gray-700 hover:text-blue-600 transition-colors flex items-center"
                 >
                   <Avatar className="w-6 h-6">
-                    
                     <AvatarFallback>👤</AvatarFallback>
                   </Avatar>
                   <span className="ml-2">Login</span>
