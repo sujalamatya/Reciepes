@@ -21,7 +21,7 @@ export default function Home() {
       const data = await fetchRecipes(query);
       setRecipes(data);
     } catch (err) {
-      setError("Failed to fetch recipes. Please try again.");
+      setError("No Recipes searched");
     } finally {
       setLoading(false);
     }
