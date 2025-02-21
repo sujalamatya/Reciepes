@@ -77,6 +77,7 @@ export default function RecipesCard({ recipes }: RecipesCardProps) {
       if (!response.ok) {
         throw new Error("Failed to update favorite status");
       }
+      console.log(response);
 
       // Update the local state to reflect the new favorite status
       setFavorites((prev) => {
@@ -84,14 +85,14 @@ export default function RecipesCard({ recipes }: RecipesCardProps) {
           ...prev,
           [recipeId]: !prev[recipeId], // Toggle the favorite status
         };
-
+        localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
         return updatedFavorites;
       });
     } catch (error) {
       console.error("Error toggling favorite:", error);
     }
   };
-
+  console.log();
   const parseArray = (value: string | string[]): string[] => {
     if (typeof value === "string") {
       try {
