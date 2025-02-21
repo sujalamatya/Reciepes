@@ -185,46 +185,57 @@ export default function RecipesCard({ recipes }: RecipesCardProps) {
       </div>
 
       <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
-        <DrawerContent>
+        <DrawerContent className="flex overflow-y-auto max-h-5dvh justify-center align-middle">
           {selectedRecipe && (
             <>
-              <DrawerHeader>
-                <DrawerTitle>{selectedRecipe.name}</DrawerTitle>
-                <DrawerDescription>
+              <DrawerHeader className="border-b">
+                <DrawerTitle className="text-2xl font-bold text-gray-900">
+                  {selectedRecipe.name}
+                </DrawerTitle>
+                <DrawerDescription className="mt-2 space-y-1">
                   <p className="text-sm text-gray-600">
-                    Cuisine: {selectedRecipe.cuisine}
+                    <span className="font-semibold">Cuisine:</span>{" "}
+                    {selectedRecipe.cuisine}
                   </p>
                   <p className="text-sm text-gray-600">
-                    Difficulty: {selectedRecipe.difficulty}
+                    <span className="font-semibold">Difficulty:</span>{" "}
+                    {selectedRecipe.difficulty}
                   </p>
                   <p className="text-sm text-gray-500">
-                    ⭐ {selectedRecipe.rating}/5
+                    <span className="font-semibold">Rating:</span> ⭐{" "}
+                    {selectedRecipe.rating}/5
                   </p>
                 </DrawerDescription>
               </DrawerHeader>
 
-              <div className="p-4">
-                <Image
-                  src={`http://localhost:8000${selectedRecipe.image}`}
-                  alt={selectedRecipe.name}
-                  width={500}
-                  height={300}
-                  className="w-full h-48 object-cover rounded-lg"
-                />
-                <p className="mt-4 text-gray-700">
+              <div className="p-6">
+                {/* Recipe Image */}
+                <div className="relative w-64 h-64 rounded-lg overflow-hidden">
+                  <Image
+                    src={`http://localhost:8000${selectedRecipe.image}`}
+                    alt={selectedRecipe.name}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+
+                {/* Recipe Description */}
+                <p className="mt-6 text-gray-700 leading-relaxed">
                   {selectedRecipe.description}
                 </p>
 
-                <div className="mt-6">
-                  <h3 className="text-lg font-semibold text-gray-800">
+                {/* Ingredients Section */}
+                <div className="mt-8">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-4">
                     Ingredients
                   </h3>
                   {selectedRecipe.ingredients &&
                   selectedRecipe.ingredients.length > 0 ? (
-                    <ul className="mt-2 list-disc list-inside text-gray-700">
+                    <ul className="space-y-2">
                       {parseArray(selectedRecipe.ingredients).map(
                         (ingredient, index) => (
-                          <li key={index} className="text-sm">
+                          <li key={index} className="text-gray-700">
+                            <span className="text-gray-500 mr-2">•</span>
                             {ingredient}
                           </li>
                         )
@@ -237,16 +248,20 @@ export default function RecipesCard({ recipes }: RecipesCardProps) {
                   )}
                 </div>
 
-                <div className="mt-6">
-                  <h3 className="text-lg font-semibold text-gray-800">
+                {/* Instructions Section */}
+                <div className="mt-8">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-4">
                     Instructions
                   </h3>
                   {selectedRecipe.instructions &&
                   selectedRecipe.instructions.length > 0 ? (
-                    <ol className="mt-2 list-decimal list-inside text-gray-700">
+                    <ol className="space-y-3">
                       {parseArray(selectedRecipe.instructions).map(
                         (step, index) => (
-                          <li key={index} className="text-sm">
+                          <li key={index} className="text-gray-700">
+                            <span className="font-semibold text-gray-900 mr-2">
+                              {index + 1}.
+                            </span>
                             {step}
                           </li>
                         )
@@ -260,8 +275,14 @@ export default function RecipesCard({ recipes }: RecipesCardProps) {
                 </div>
               </div>
 
-              <DrawerFooter>
-                <Button onClick={handleCloseDrawer}>Close</Button>
+              {/* Footer with Close Button */}
+              <DrawerFooter className="border-t">
+                <Button
+                  onClick={handleCloseDrawer}
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                >
+                  Close
+                </Button>
               </DrawerFooter>
             </>
           )}
