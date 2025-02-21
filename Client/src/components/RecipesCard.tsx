@@ -51,18 +51,13 @@ export default function RecipesCard({ recipes }: RecipesCardProps) {
     setIsDrawerOpen(false);
     setSelectedRecipe(null);
   };
+
   const token = localStorage.getItem("access");
+  const user = JSON.parse(atob(token.split(".")[1])); // Decode the token to get user info
+  const currentUserId = user.user_id; // Assuming the user ID is stored in `user_id`
 
-  // Log the token for debugging purposes
-  console.log("Using token:", token);
-
-  // Check if token exists before proceeding
-  if (!token) {
-    throw new Error("No access token found. Please log in.");
-  }
   const toggleFavorite = async (recipeId: number | string) => {
     try {
-      // Send a POST request to the API to toggle the favorite status
       const response = await fetch(
         `http://localhost:8000/api/recipes/favorite/${recipeId}/`,
         {
@@ -77,9 +72,7 @@ export default function RecipesCard({ recipes }: RecipesCardProps) {
       if (!response.ok) {
         throw new Error("Failed to update favorite status");
       }
-      console.log(response);
 
-      // Update the local state to reflect the new favorite status
       setFavorites((prev) => {
         const updatedFavorites = {
           ...prev,
@@ -92,7 +85,7 @@ export default function RecipesCard({ recipes }: RecipesCardProps) {
       console.error("Error toggling favorite:", error);
     }
   };
-  console.log();
+
   const parseArray = (value: string | string[]): string[] => {
     if (typeof value === "string") {
       try {
@@ -210,7 +203,6 @@ export default function RecipesCard({ recipes }: RecipesCardProps) {
               </DrawerHeader>
 
               <div className="p-6">
-                {/* Recipe Image */}
                 <div className="relative w-64 h-64 rounded-lg overflow-hidden">
                   <Image
                     src={`http://localhost:8000${selectedRecipe.image}`}
@@ -220,12 +212,10 @@ export default function RecipesCard({ recipes }: RecipesCardProps) {
                   />
                 </div>
 
-                {/* Recipe Description */}
                 <p className="mt-6 text-gray-700 leading-relaxed">
                   {selectedRecipe.description}
                 </p>
 
-                {/* Ingredients Section */}
                 <div className="mt-8">
                   <h3 className="text-xl font-semibold text-gray-900 mb-4">
                     Ingredients
@@ -249,7 +239,6 @@ export default function RecipesCard({ recipes }: RecipesCardProps) {
                   )}
                 </div>
 
-                {/* Instructions Section */}
                 <div className="mt-8">
                   <h3 className="text-xl font-semibold text-gray-900 mb-4">
                     Instructions
@@ -276,7 +265,6 @@ export default function RecipesCard({ recipes }: RecipesCardProps) {
                 </div>
               </div>
 
-              {/* Footer with Close Button */}
               <DrawerFooter className="border-t">
                 <Button
                   onClick={handleCloseDrawer}

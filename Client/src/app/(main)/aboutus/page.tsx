@@ -76,6 +76,16 @@ export default function AboutUs() {
               <h3 className="text-xl font-bold mb-2">Sujal Amatya</h3>
               <p className="text-gray-600">Frontend</p>
             </div>
+            {/* Team Member 4 */}
+            <div className="bg-white p-6 rounded-lg shadow-lg text-center col-start-2">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"
+                alt="Team Member 3"
+                className="w-32 h-32 rounded-full mx-auto mb-4"
+              />
+              <h3 className="text-xl font-bold mb-2">Prajan Ghimire</h3>
+              <p className="text-gray-600">QA</p>
+            </div>
           </div>
         </div>
       </div>
