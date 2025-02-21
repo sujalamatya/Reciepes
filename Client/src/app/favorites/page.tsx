@@ -42,8 +42,8 @@ export default function Favorite() {
         const data = await response.json();
         setFavorites(data.recipes);
       } catch (error) {
-        console.error("Error fetching favorites:", error);
-        setError("Failed to load favorites. Please try again later.");
+        // console.error("Error fetching favorites:", error);
+        setError("You dont have any favorite recipes!");
       } finally {
         setLoading(false);
       }
