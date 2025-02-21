@@ -8,4 +8,5 @@ export interface Recipe {
   description: string;
   ingredients: string[];
   instructions: string[];
+  favorites: string[];
 }
