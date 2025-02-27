@@ -53,8 +53,8 @@ export default function RecipesCard({ recipes }: RecipesCardProps) {
   };
 
   const token = localStorage.getItem("access");
-  const user = JSON.parse(atob(token.split(".")[1])); // Decode the token to get user info
-  const currentUserId = user.user_id; // Assuming the user ID is stored in `user_id`
+  //const user = JSON.parse(atob(token.split(".")[1])); // Decode the token to get user info
+  // const currentUserId = user.user_id; // Assuming the user ID is stored in `user_id`
 
   const toggleFavorite = async (recipeId: number | string) => {
     try {
