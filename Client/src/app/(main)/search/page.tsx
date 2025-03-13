@@ -1,17 +1,15 @@
 "use client";
 
-import { useState } from "react";
-import { fetchRecipes } from "../../../api/api";
 import { motion } from "framer-motion";
 import SearchBar from "../../../components/ui/SearchBar";
 import RecipesCard from "../../../components/RecipesCard";
-import { Recipe } from "../../../types/types";
+import { fetchRecipes } from "../../../api/api";
 import Navbar from "@/components/common/Navbar";
+import useRecipeStore from "../../../store/useRecipeStore";
 
 export default function Home() {
-  const [recipes, setRecipes] = useState<Recipe[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const { recipes, loading, error, setRecipes, setLoading, setError } =
+    useRecipeStore();
 
   const handleSearch = async (query: string) => {
     setLoading(true);

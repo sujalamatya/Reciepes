@@ -1,4 +1,5 @@
 "use client"; // Ensure this is a client component
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -7,19 +8,18 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Recipe } from "../types/types";
-import { motion } from "framer-motion";
-import Image from "next/image";
-import { useState, useEffect } from "react";
 import {
   Drawer,
   DrawerContent,
-  DrawerHeader,
-  DrawerTitle,
   DrawerDescription,
   DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
 } from "@/components/ui/drawer";
-import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import { Recipe } from "../types/types";
 
 interface RecipesCardProps {
   recipes: Recipe[];
@@ -30,6 +30,7 @@ export default function RecipesCard({ recipes }: RecipesCardProps) {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [favorites, setFavorites] = useState<{ [key: string]: boolean }>({});
 
+  // Fix hydration issue: Initialize favorites only on the client side
   useEffect(() => {
     const storedFavorites = localStorage.getItem("favorites");
     if (storedFavorites) {
@@ -53,8 +54,6 @@ export default function RecipesCard({ recipes }: RecipesCardProps) {
   };
 
   const token = localStorage.getItem("access");
-  //const user = JSON.parse(atob(token.split(".")[1])); // Decode the token to get user info
-  // const currentUserId = user.user_id; // Assuming the user ID is stored in `user_id`
 
   const toggleFavorite = async (recipeId: number | string) => {
     try {
@@ -179,7 +178,7 @@ export default function RecipesCard({ recipes }: RecipesCardProps) {
       </div>
 
       <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
-        <DrawerContent className="flex overflow-y-auto max-h-5dvh justify-center align-middle">
+        <DrawerContent className="flex overflow-y-auto max-h-[90vh] justify-center align-middle">
           {selectedRecipe && (
             <>
               <DrawerHeader className="border-b">
@@ -187,22 +186,22 @@ export default function RecipesCard({ recipes }: RecipesCardProps) {
                   {selectedRecipe.name}
                 </DrawerTitle>
                 <DrawerDescription className="mt-2 space-y-1">
-                  <p className="text-sm text-gray-600">
+                  <div className="text-sm text-gray-600">
                     <span className="font-semibold">Cuisine:</span>{" "}
                     {selectedRecipe.cuisine}
-                  </p>
-                  <p className="text-sm text-gray-600">
+                  </div>
+                  <div className="text-sm text-gray-600">
                     <span className="font-semibold">Difficulty:</span>{" "}
                     {selectedRecipe.difficulty}
-                  </p>
-                  <p className="text-sm text-gray-500">
+                  </div>
+                  <div className="text-sm text-gray-500">
                     <span className="font-semibold">Rating:</span> ⭐{" "}
                     {selectedRecipe.rating}/5
-                  </p>
+                  </div>
                 </DrawerDescription>
               </DrawerHeader>
 
-              <div className="p-6">
+              <div className="p-6 overflow-y-auto">
                 <div className="relative w-64 h-64 rounded-lg overflow-hidden">
                   <Image
                     src={`http://localhost:8000${selectedRecipe.image}`}
